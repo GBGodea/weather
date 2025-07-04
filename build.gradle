@@ -1,6 +1,21 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+shadowJar {
+    manifest {
+        attributes 'Main-Class': 'org.godea.Main'
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.godea.Main'
+        )
+    }
 }
 
 group = 'com.example'
@@ -34,5 +49,11 @@ dependencies {
 }
 
 application {
-    mainClass = 'com.example.Main'
+    mainClass = 'com.godea.Main'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }

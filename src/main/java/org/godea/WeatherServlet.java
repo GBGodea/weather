@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import javax.imageio.ImageIO;
 
@@ -38,7 +39,7 @@ public class WeatherServlet extends HttpServlet {
 
     static {
         try {
-            redis = new Jedis("localhost", 6379);
+            redis = new Jedis("redis", 6379);
             redis.ping();
         } catch (JedisConnectionException e) {
             System.err.println("Warning: Could not connect to Redis, caching disabled: " + e.getMessage());
@@ -79,10 +80,11 @@ public class WeatherServlet extends HttpServlet {
                 double lat = loc.get("latitude").asDouble();
                 double lon = loc.get("longitude").asDouble();
 
-                String url = String.format(
+                String url = String.format(Locale.US,
                         "https://api.open-meteo.com/v1/forecast?latitude=%.6f&longitude=%.6f&hourly=temperature_2m&forecast_days=1",
                         lat, lon
                 );
+
                 JsonNode weather = fetchJson(url);
                 hourly = weather.get("hourly");
 
