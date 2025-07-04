@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.example'
+version = '1.0.0'
+sourceCompatibility = '17'
+
+def okhttpVersion    = '4.11.0'
+
+def jedisVersion     = '4.3.1'
+
+def jacksonVersion   = '2.15.2'
+
+def jfreechartVersion= '1.5.4'
+
+def jettyVersion     = '11.0.15'
+
+def servletApi       = '5.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.eclipse.jetty:jetty-server:${jettyVersion}"
+    implementation "org.eclipse.jetty:jetty-servlet:${jettyVersion}"
+    implementation "jakarta.servlet:jakarta.servlet-api:${servletApi}"
+    implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    implementation "redis.clients:jedis:${jedisVersion}"
+    implementation "org.jfree:jfreechart:${jfreechartVersion}"
+}
+
+application {
+    mainClass = 'com.example.Main'
+}
